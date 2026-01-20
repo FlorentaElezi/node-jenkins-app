@@ -1,0 +1,23 @@
+{
+  "name": "jenkins-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlorentaElezi/node-jenkins-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FlorentaElezi/node-jenkins-app/issues"
+  },
+  "homepage": "https://github.com/FlorentaElezi/node-jenkins-app#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
