@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-jenkins-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-jenkins-app
+  template:
+    metadata:
+      labels:
+        app: node-jenkins-app
+    spec:
+      containers:
+      - name: node-jenkins-app
+        image: yourdockerhubusername/node-jenkins-app:latest
+        ports:
+        - containerPort: 3000
