@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds') // Add this in Jenkins
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
         IMAGE_NAME = "yourdockerhubusername/node-jenkins-app"
         IMAGE_TAG = "latest"
     }
@@ -11,35 +11,35 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Installing Node.js dependencies...'
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running a simple test...'
-                sh 'node -e "require(\'./app.js\')"'
+                echo 'Running a basic test...'
+                bat 'node -e "require(\'./app.js\')"'
             }
         }
 
         stage('Docker Build & Push') {
             steps {
-                echo 'Building and pushing Docker image...'
-                sh """
-                    docker build -t $IMAGE_NAME:$IMAGE_TAG .
-                    docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW
-                    docker push $IMAGE_NAME:$IMAGE_TAG
-                """
+                echo 'Building Docker image...'
+                bat "docker build -t %IMAGE_NAME%:%IMAGE_TAG% ."
+
+                echo 'Logging into Docker Hub...'
+                bat "docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%"
+
+                echo 'Pushing Docker image...'
+                bat "docker push %IMAGE_NAME%:%IMAGE_TAG%"
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy to Kubernetes') {
             steps {
                 echo 'Deploying to Kubernetes...'
-                sh """
-                    kubectl apply -f k8s/deployment.yaml
-                    kubectl apply -f k8s/service.yaml
-                """
+                bat "kubectl apply -f k8s\\deployment.yaml"
+                bat "kubectl apply -f k8s\\service.yaml"
             }
         }
     }
