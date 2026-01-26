@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
-        IMAGE_NAME = "yourdockerhubusername/node-jenkins-app"
+        IMAGE_NAME = "florentaa/node-jenkins-app"
         IMAGE_TAG = "latest"
     }
 
