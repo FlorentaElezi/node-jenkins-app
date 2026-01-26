@@ -15,12 +15,23 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        /*stage('Test') {
             steps {
                 echo 'Running a basic test...'
                 bat 'node -e "require(\'./app.js\')"'
             }
-        }
+        }*/
+
+        stage('Test') {
+    steps {
+        echo 'Running app start test (10 seconds)...'
+        bat '''
+        start "" cmd /c "node app.js"
+        timeout /t 10
+        taskkill /IM node.exe /F
+        '''
+    }
+}
 
         stage('Docker Build & Push') {
             steps {
